@@ -1,8 +1,7 @@
-###############################################
-# Changed by Hossein Azizi
-# Changed date: 03/21/2019
-# Licensce: free to use
-#############################################
+##########################
+# author by Hossein Azizi 
+# creation date: Aug 2021
+##########################
 
 #import local_data as sample_data
 from flask import Flask, render_template, request
@@ -176,7 +175,7 @@ app = Flask(__name__)
 # render index.html home page
 @app.route("/")
 def index():
-    return render_template('test.html')
+    return render_template('index.html')
 
 
 # render predict.html page
@@ -214,7 +213,7 @@ with open('cat_model.dill', 'rb') as f:
 # render index.html home page
 
 @app.route("/", methods=['GET', 'POST'])
-def test():
+def predict():
 
 	if request.method == 'POST':
 
@@ -339,7 +338,7 @@ def test():
 		return render_template('pred_res.html', combined=combined.to_json())
 
 		#return render_template('test.html', pred=str(pred))
-	return render_template('test.html')
+	return render_template('index.html')
 
 
 @app.route("/bike_predict")
@@ -760,4 +759,4 @@ def data_fimp():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
