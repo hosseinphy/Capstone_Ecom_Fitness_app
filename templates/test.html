@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_lulu.css')}}'>
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+<head>
+    <meta charset="UTF-8">
+    <title>My Model</title>
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">script></script>
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-beta.30/vega.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.2/vega-lite.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.14/vega-embed.js"></script>-->
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+    <script src="https://vega.github.io/datalib/datalib.min.js"></script>
+
+    <!-- Vega Tooltip
+    <script src="https://vega.github.io/vega-tooltip/vega-tooltip.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://vega.github.io/vega-tooltip/vega-tooltip.css">-->
+    <!-- Import Vega 3 & Vega-Lite 2 (does not have to be from CDN) -->
+   <link rel="stlesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/vega-tooltip.scss">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/build/vega-tooltip.min.js"></script>
+
+    <style>hr, h3 {padding-bottom: 20px;}canvas {background-color: #fffff;}</style>
+    <style>
+    div.waterfall {
+        width: 1200px;
+        height: 300px;
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+    </style>
+</head>
+
+<body>
+
+
+   <!-- tabs -->
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+          <!--<li><a href="https://altair-viz.github.io/index.html">Altair</a></li>
+          <li><a href="http://d3js.org/">D3</a></li>
+          <li><a href="http://flask.pocoo.org/">Flask</a></li>
+          <li><a href="/electricity">electricity chart</a></li>
+          <li><a href="/cars">cars chart</a></li>-->
+          <li><a href="https://www.octoparse.com">Octoparse</a></li>
+	  <li><a href="https://stocktrack.ca">StockTracker</a></li>
+          <li><a href="/predict">EDA</a></li>
+        </ul>
+        <h1 class="text-muted">E-com Fitness</h1>
+      </div>
+
+     <p style="padding-top:20px"> 
+
+      <h1 style="font-size:20px"> <em>E-com Fitness</em> is a web-based application designed to forecast 
+		<em>fitness</em> product sales using data extracted from social media and time-series analysis. 
+		(<em>Still under construction</em>) 
+      </h1>      
+
+      <br> <!-- New line --> 
+      <br> <!-- New line --> 
+
+
+      <!-- chained droplists	
+      <div class="row">
+        <div class="form-group col-xs-6">
+          <label for="all_classes">Select a class</label>
+          <select class="form-control" id="all_classes">
+            {% for o in all_classes %}
+                    <option value="{{ o }}">{{ o }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group col-xs-6">
+          <label for="all_entries">Select an entry</label>
+          <select class="form-control" id="all_entries">
+            {% for o in all_entries %}
+                    <option value="{{ o }}">{{ o }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="process_input">Process selection!</button>
+      </div><br><br>
+      <div id="processed_results">
+        Here we display some output based on the selection
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('#all_classes').change(function(){
+
+          $.getJSON('/_update_dropdown', {
+            selected_class: $('#all_classes').val()
+
+          }).success(function(data) {
+                $('#all_entries').html(data.html_string_selected);
+           })
+        });
+        $('#process_input').bind('click', function() {
+
+            $.getJSON('/_process_data', {
+                selected_class: $('#all_classes').val(),
+                selected_entry: $('#all_entries').val(),
+
+
+            }).success(function(data) {
+                $('#processed_results').text(data.random_text);
+            })
+          return false;
+
+        });
+      });
+    </script> -->
+
+
+
+  <!--<form action="/result" method="POST">-->
+  <form method=post enctype=multipart/form-data>    
+<!--<label for="age">Age</label>
+    <input type="text" id="age" name="age">-->
+    <br>
+    <label for="F_class">Fitness Class</label>
+    <select id="F_class" name="F_class">
+      <option value="0">Cardio Fitness</option>
+      <option value="1">Strength Fitness</option>
+    </select>
+    <br>
+    <label for="F_type">Fitness Category</label>
+    <select id="F_type" name="F_type">
+      <option value="0">Dumbells</option>
+      <option value="1">Elliptical</option>
+      <option value="2">Weight Lift</option>
+      <option value="3">Treadmill</option>
+      <option value="4">Indoor Bike</option>
+    </select>
+    <br>
+    <input type="submit" value="Predict inventory">
+  </form><br><br>	
+
+<!--    <form method=post enctype=multipart/form-data>
+        A:  <input type="number" name="beds" min="1" max="10"><br>
+        B: <input type=number name="baths" min="1" max="10"><br>
+        C:  <input type=number name="sqft"><br>
+        <input type=submit value=Submit>
+   </form> -->
+   <!-- My prediction: {{ pred }} -->
+
+  	
+      <!--<div class="charts text-center">
+        <div class="row"><div id="bar"></div></div><hr>
+	    <h1 class="text">Historical fitness inventory data</h1>
+        <div class="row"><div id="prediction"></div></div><hr>
+
+        <div id="vis-tooltip" class="vg-tooltip"></div>
+      </div>
+    </div>
+
+        <div class="row"><div id="bar"></div></div><hr>
+	    <h1 class="text">Historical fitness inventory data</h1>
+        <div class="row"><div id="bike_predict"></div></div><hr>
+        <div id="vis-tooltip" class="vg-tooltip"></div>
+      </div>
+    </div>-->
+
+
+     <p class="indented">
+	<h1 class="text"><b> Motivation: </b></h1>
+         <!--<p style="padding-top:20px">-->
+
+	<ul class="indented">
+		<li style="font-size:20px">Google's trending search queries across Canada in various physical fitness and exercise categories from 2010 to 2021</li>
+		<li style="font-size:20px">Increasing interest in fitness equipment since the beginning of the pandemic</li>
+	</ul>		
+        <!--</p>--> 
+     </p><br><br>
+
+     <div class="charts text-center">
+       <h1 class="text">Google trends in Canada</h1>
+	<div class="row"><div id="googel_trends"></div></div><hr>
+     </div>
+
+
+     <p class="indented">
+		<h1 class="text"><b> Objectives: </b></h1>
+		<h1 style="font-size:20px"> This application is designed to:</h1>
+		<ul class="indented">
+			<li style="font-size:20px">Provide buyers habit trends</li>
+			<li style="font-size:20px">Output potential profit</li>
+			<li style="font-size:20px">Provide negative feedback, modify sales strategies to gain customer retention</li>
+			<li style="font-size:20px">Predict product success or failure</li>
+		</ul>		
+      </p>
+
+      <br> <!-- New line --> 
+      <br> <!-- New line -->
+ 
+     <p class="indented">	
+
+	<h1 class="text"><b> Data extraction: </b></h1>
+		<!--<ul>
+			<li>Lack of publically accessible data; problem with coarse historical data</li>
+			<li>Getting blocked by APIs</li>
+			<li>Example 3</li>
+		</ul> -->
+		<!--I used various python libraries and <a href="https://www.octoparse.com">Octoparse</a> to effitiently scrape data from social media (e.g., posts, comments, reactions…etc.), online sales form different retailers (Walmart, Ebay, Canadian Tire, etc.) from StockTracker <a href="https://stocktrack.ca">StockTracker</a>. -->
+
+	<ul>
+		<li style="font-size:20px">Utilize new web scraping tools (<a href="https://www.octoparse.com">Octoparse</a>), crawling from different APIs</li>
+		<li style="font-size:20px">Scraped 10000 Facebook posts/tweets; form 100 top fitness pages; 10000 sold products from last three months on Ebay.ca; historical data from last three years for 1000 unique products on Walmart, Canadian Tire, and Best buy</li>		
+		<li style="font-size:20px">Handling blocking and scrape from ajax websites</li>
+		<li style="font-size:20px">Figure below shows the online fitness product inventory for Walmart scraped from <a href="https://stocktrack.ca">StockTrack</a></li>
+		<!--<li style="font-size:20px">Run up to 6 tasks on cloud</li>-->
+	</ul>
+</p><br><br>
+
+
+      <div class="charts text-center">
+        <!--<div class="row"><div id="bar"></div></div><hr>-->
+	    <h1 class="text">Historical fitness inventory data</h1>
+        <div class="row"><div id="stock_fitness"></div></div><hr>
+	<!--    <h1 class="text">Historical Indoor bike data</h1>
+        <div class="row"><div id="bike_df"></div></div><hr> 
+        <div class="waterfall" id="waterfall"></div><hr>
+        <div class="row"><div id="line"></div></div><hr>
+        <div class="row"><div id="multiline"></div></div><hr>
+        <div class="row"><div id="stocks"></div></div><hr>
+        <div class="row"><div id="scatter"></div></div><hr> -->
+       
+        <!-- Placeholder for the tooltip -->
+        <div id="vis-tooltip" class="vg-tooltip"></div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      function parse(url, div) {
+        var opt = {
+          mode: "vega-lite",
+          renderer: "svg",
+          actions: {export: true, source: false, editor: false}
+        };
+
+        vegaEmbed("#"+div, url, opt, function(error, result) {
+          // result.view is the Vega View, url is the original Vega-Lite specification
+          vegaTooltip.vegaLite(result.view, url);
+        });
+      }
+
+      parse("/data/googel_trends", "googel_trends")	
+
+      parse("/data/stock_fitness", "stock_fitness")	
+
+
+
+
+    </script>
+
+</body>
+</html>
