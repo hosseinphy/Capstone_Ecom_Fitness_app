@@ -1,0 +1,10 @@
+flask==1.1.2
+gunicorn
+altair==4.1.0
+seaborn==0.11.0
+pandas==1.3.1
+numpy==1.21.2
+scipy==1.7.1
+scikit-learn==0.24.2
+vega-datasets==0.9.0
+dill
